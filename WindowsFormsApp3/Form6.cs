@@ -80,6 +80,7 @@ namespace WindowsFormsApp3
             {
                 HP = Convert.ToDouble(textBox1.Text);
                 Date = dateTimePicker1.Value.Date;
+                MessageBox.Show("Historical Price was successfull added", "Done", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             catch
             {
@@ -91,12 +92,12 @@ namespace WindowsFormsApp3
                 Date = Date,
                 ClosingPrice = HP,
             };
-            using (Model1Container db = new Model1Container())
+            using (Model1Container db1 = new Model1Container())
             {
                 //Console.WriteLine("yes1");
                 //db.SaveChanges();
-                db.Price1.Add(x);
-                db.SaveChanges();
+                db1.Price1.Add(x);
+                db1.SaveChanges();
                 //Console.ReadLine();
 
             }

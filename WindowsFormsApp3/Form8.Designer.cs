@@ -81,6 +81,7 @@
             this.checkBox1.TabIndex = 31;
             this.checkBox1.Text = "Antithetic Simulation";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // checkBox3
             // 
@@ -147,7 +148,7 @@
             this.Controls.Add(this.checkBox3);
             this.Controls.Add(this.groupBox4);
             this.Name = "Form8";
-            this.Text = "Form8";
+            this.Text = "Setting";
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.ResumeLayout(false);

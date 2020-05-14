@@ -11,45 +11,36 @@ using ConsoleApp21;
 
 namespace WindowsFormsApp3
 {
+    
     public partial class Form4 : Form
     {
-        public int idk;
-        ComboboxItem[] d1;
+        public static int idk = Method.GetInstCount();
+        ComboboxItem[] d1= new ComboboxItem[idk];
         public Form4()
         {
             InitializeComponent();
-            idk = GetInstCount();
-            ComboboxItem[] d = new ComboboxItem[idk];
+            List<Instruments1> d = new List<Instruments1>();
+            
             using (Model1Container db = new Model1Container())
             {
-                
+                d = db.Instruments1.ToList();
                 for (int i = 1; i < idk+1; i++)
                 {
-                    
                     string x;
-                    x = db.Instruments1.Find(i).Ticker;
-                    comboBox1.Items.Add(x);
-                    
+                    comboBox1.Items.Add(d[i - 1].Ticker);
                     ComboboxItem item = new ComboboxItem();
-                    item.Text = Convert.ToString(x);
-                    item.Value = i;
-                    d[i-1] = item;
+                    item.Text = Convert.ToString(d[i - 1].Ticker);
+                    item.Value = d[i - 1].Id;
+                    d1[i - 1] = item;
                     //Console.WriteLine("instid:{0}, {1}", d[i-1].Value, d[i-1].Text);
                     //Console.ReadLine();
                 }
-                d1 = d;
+                
 
             }
             
         }
-        public int GetInstCount()
-        {
-            using (Model1Container db = new Model1Container())
-            {
-                return db.Instruments1.Count();
-            }
-
-        }
+        
         public class ComboboxItem
         {
             public string Text { get; set; }
@@ -58,6 +49,17 @@ namespace WindowsFormsApp3
             public override string ToString()
             {
                 return Text;
+            }
+        }
+        public static class Method
+        {
+            public static int GetInstCount()
+            {
+                using (Model1Container db = new Model1Container())
+                {
+                    return db.Instruments1.Count();
+                }
+
             }
         }
         public int selectedIndex, selectedValue1, Q;
@@ -84,7 +86,7 @@ namespace WindowsFormsApp3
                // Console.ReadLine();
                 if (d1[i].Text == Inst)
                 {
-                    selectedValue1 = i + 1;
+                    selectedValue1 = d1[i].Value;
                     //Console.WriteLine("instid:{0}", selectedValue1);
                     //Console.ReadLine();
                 }
@@ -134,6 +136,7 @@ namespace WindowsFormsApp3
                 //db.SaveChanges();
                 db.Trade1.Add(x);
                 db.SaveChanges();
+                MessageBox.Show("Trade Added", "Sucess", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 //Console.ReadLine();
 
             }

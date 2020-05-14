@@ -158,17 +158,18 @@ namespace WindowsFormsApp3
         public Form1()
         {
             InitializeComponent();
+            
             Model1Container db = new Model1Container();
             d = db.Instruments1.OfType<Stock1>().ToList();
-            for (int i = 1; i < idk + 1; i++)
+            for (int i = 0; i < idk ; i++)
             {
 
                 string x;
-                comboBox1.Items.Add(d[i - 1].CompanyName);
+                comboBox1.Items.Add(d[i ].CompanyName);
                 ComboboxItem item = new ComboboxItem();
-                item.Text = Convert.ToString(d[i - 1].CompanyName);
-                item.Value = d[i - 1].Id;
-                d1[i - 1] = item;
+                item.Text = Convert.ToString(d[i ].CompanyName);
+                item.Value = d[i ].Id;
+                d1[i] = item;
 
             }
             if (CheckDatabaseExists("DataModelforTrades"))
@@ -301,33 +302,38 @@ namespace WindowsFormsApp3
             {
                 MessageBox.Show("Please select either One of the Option Types", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            
+           
             try
             {
-                string Inst = comboBox1.Text;
                 for (int i = 0; i < idk; i++)
                 {
                     if (d1[i].Text == Inst)
                     {
                         selectedValue1 = d1[i].Value;
+                        Console.WriteLine("i:{0}, {1}", d1[i].Text, Inst);
+                        break;
                     }
 
                 }
+                //selectedValue1;
             }
             catch
             {
                 MessageBox.Show("Please select an underlying or add historical price before proceesding", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            U = GetUnderlying.GetClosingPrice(selectedValue1); //Convert.ToDouble(textBox1.Text);
+            S = Convert.ToDouble(textBox2.Text);
+            T = Convert.ToDouble(textBox3.Text);
+            V = Convert.ToDouble(Program.Vuniversal) / 100;
+            Console.WriteLine("U:{0}, S:{1}, T: {2},  V:{3}", U, S, T, V);
 
+            Trials = Program.Trial_uni; //Convert.ToInt32(textBox6.Text);
+            Steps = Program.Steps_uni;//Convert.ToInt32(textBox7.Text);
+                                      //RP = Convert.ToDouble(textBox10);
             try
             {
-                U = GetUnderlying.GetClosingPrice(selectedValue1); //Convert.ToDouble(textBox1.Text);
-                S = Convert.ToDouble(textBox2.Text);
-                T = Convert.ToDouble(textBox3.Text);
-                V = Convert.ToDouble(Program.Vuniversal)/100;
-                
-                Trials = Program.Trial_uni; //Convert.ToInt32(textBox6.Text);
-                Steps = Program.Steps_uni;//Convert.ToInt32(textBox7.Text);
-                //RP = Convert.ToDouble(textBox10);
+               
 
             }
             catch
@@ -801,10 +807,11 @@ namespace WindowsFormsApp3
                 a8 = Convert.ToString(first_option.z);
             }//Digital Option
         }
-        
 
+        public static string Inst;
         private void button1_Click(object sender, EventArgs e)
         {
+            Inst = comboBox1.SelectedItem.ToString();
             progressBar1.Value = 0;
             label27.Text = "Progress";
             this._backgroundWorker.RunWorkerAsync();

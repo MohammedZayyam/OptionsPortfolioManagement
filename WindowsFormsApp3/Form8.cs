@@ -43,5 +43,10 @@ namespace WindowsFormsApp3
                 MessageBox.Show("Please select the right kind of Input", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
