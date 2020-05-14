@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Instruments1" EntityType="Model1.Instruments1" />
+    <EntitySet Name="Price1" EntityType="Model1.Price1" />
+    <EntitySet Name="Trade1" EntityType="Model1.Trade1" />
+    <EntitySet Name="InterestRate1" EntityType="Model1.InterestRate1" />
+    <AssociationSet Name="InstrumentsPrice1" Association="Model1.InstrumentsPrice1">
+      <End Role="Instruments1" EntitySet="Instruments1" />
+      <End Role="Price1" EntitySet="Price1" />
+    </AssociationSet>
+    <AssociationSet Name="InstrumentsTrade1" Association="Model1.InstrumentsTrade1">
+      <End Role="Instruments1" EntitySet="Instruments1" />
+      <End Role="Trade1" EntitySet="Trade1" />
+    </AssociationSet>
+    <EntitySet Name="sysdiagrams" EntityType="Model1.sysdiagram" />
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(Model1.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(Model1.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <EntityType Name="Instruments1" Abstract="true">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Ticker" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Exchange" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Underlying" Type="Double" Nullable="false" />
+    <NavigationProperty Name="Prices" Relationship="Model1.InstrumentsPrice1" FromRole="Instruments1" ToRole="Price1" />
+    <NavigationProperty Name="Trades" Relationship="Model1.InstrumentsTrade1" FromRole="Instruments1" ToRole="Trade1" />
+  </EntityType>
+  <EntityType Name="Price1">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ClosingPrice" Type="Double" Nullable="false" />
+    <Property Name="InstrumentsId" Type="Int32" Nullable="false" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+    <NavigationProperty Name="Instrument" Relationship="Model1.InstrumentsPrice1" FromRole="Price1" ToRole="Instruments1" />
+  </EntityType>
+  <EntityType Name="Stock1" BaseType="Model1.Instruments1">
+    <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="European1" BaseType="Model1.Instruments1">
+    <Property Name="Strike" Type="Double" Nullable="false" />
+    <Property Name="IsCall" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="ExpirationDate" Type="Double" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Asian1" BaseType="Model1.Instruments1">
+    <Property Name="Strike" Type="Double" Nullable="false" />
+    <Property Name="IsCall" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="ExpirationDate" Type="Double" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Range1" BaseType="Model1.Instruments1">
+    <Property Name="Strike" Type="Double" Nullable="false" />
+    <Property Name="ExpirationDate" Type="Double" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LookBack1" BaseType="Model1.Instruments1">
+    <Property Name="Strike" Type="Double" Nullable="false" />
+    <Property Name="IsCall" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="ExpirationDate" Type="Double" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Digital1" BaseType="Model1.Instruments1">
+    <Property Name="Strike" Type="Double" Nullable="false" />
+    <Property Name="IsCall" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="ExpirationDate" Type="Double" Nullable="false" />
+    <Property Name="Rebate" Type="Double" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Barrier1" BaseType="Model1.Instruments1">
+    <Property Name="Strike" Type="Double" Nullable="false" />
+    <Property Name="IsCall" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="ExpirationDate" Type="Double" Nullable="false" />
+    <Property Name="BarrierPrice" Type="Double" Nullable="false" />
+    <Property Name="BarrierType" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Trade1">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IsBuy" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Direction" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Double" Nullable="false" />
+    <Property Name="TimeStamp" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="InstrumentsId" Type="Int32" Nullable="false" cg:GetterAccess="Public" />
+    <NavigationProperty Name="Instrument" Relationship="Model1.InstrumentsTrade1" FromRole="Trade1" ToRole="Instruments1" />
+  </EntityType>
+  <EntityType Name="InterestRate1">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Tenor" Type="Double" Nullable="false" />
+    <Property Name="Rate" Type="Double" Nullable="false" />
+  </EntityType>
+  <Association Name="InstrumentsPrice1">
+    <End Type="Model1.Instruments1" Role="Instruments1" Multiplicity="1" />
+    <End Type="Model1.Price1" Role="Price1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Instruments1">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Price1">
+        <PropertyRef Name="InstrumentsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InstrumentsTrade1">
+    <End Type="Model1.Instruments1" Role="Instruments1" Multiplicity="1" />
+    <End Type="Model1.Trade1" Role="Trade1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Instruments1">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Trade1">
+        <PropertyRef Name="InstrumentsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>

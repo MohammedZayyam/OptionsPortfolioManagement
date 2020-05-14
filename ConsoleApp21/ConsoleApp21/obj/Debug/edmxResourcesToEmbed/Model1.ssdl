@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="Instruments1" EntityType="Model1.Store.Instruments1" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Price1" EntityType="Model1.Store.Price1" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Trade1" EntityType="Model1.Store.Trade1" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="InterestRate1" EntityType="Model1.Store.InterestRate1" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="sysdiagrams" EntityType="Model1.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Instruments1_Stock1" EntityType="Model1.Store.Instruments1_Stock1" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Instruments1_European1" EntityType="Model1.Store.Instruments1_European1" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Instruments1_Asian1" EntityType="Model1.Store.Instruments1_Asian1" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Instruments1_Range1" EntityType="Model1.Store.Instruments1_Range1" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Instruments1_LookBack1" EntityType="Model1.Store.Instruments1_LookBack1" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Instruments1_Digital1" EntityType="Model1.Store.Instruments1_Digital1" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Instruments1_Barrier1" EntityType="Model1.Store.Instruments1_Barrier1" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="InstrumentsPrice1" Association="Model1.Store.InstrumentsPrice1">
+      <End Role="Instruments1" EntitySet="Instruments1" />
+      <End Role="Price1" EntitySet="Price1" />
+    </AssociationSet>
+    <AssociationSet Name="InstrumentsTrade1" Association="Model1.Store.InstrumentsTrade1">
+      <End Role="Instruments1" EntitySet="Instruments1" />
+      <End Role="Trade1" EntitySet="Trade1" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Stock1_inherits_Instruments1" Association="Model1.Store.FK_Stock1_inherits_Instruments1">
+      <End Role="Instruments1" EntitySet="Instruments1" />
+      <End Role="Stock1" EntitySet="Instruments1_Stock1" />
+    </AssociationSet>
+    <AssociationSet Name="FK_European1_inherits_Instruments1" Association="Model1.Store.FK_European1_inherits_Instruments1">
+      <End Role="Instruments1" EntitySet="Instruments1" />
+      <End Role="European1" EntitySet="Instruments1_European1" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Asian1_inherits_Instruments1" Association="Model1.Store.FK_Asian1_inherits_Instruments1">
+      <End Role="Instruments1" EntitySet="Instruments1" />
+      <End Role="Asian1" EntitySet="Instruments1_Asian1" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Range1_inherits_Instruments1" Association="Model1.Store.FK_Range1_inherits_Instruments1">
+      <End Role="Instruments1" EntitySet="Instruments1" />
+      <End Role="Range1" EntitySet="Instruments1_Range1" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LookBack1_inherits_Instruments1" Association="Model1.Store.FK_LookBack1_inherits_Instruments1">
+      <End Role="Instruments1" EntitySet="Instruments1" />
+      <End Role="LookBack1" EntitySet="Instruments1_LookBack1" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Digital1_inherits_Instruments1" Association="Model1.Store.FK_Digital1_inherits_Instruments1">
+      <End Role="Instruments1" EntitySet="Instruments1" />
+      <End Role="Digital1" EntitySet="Instruments1_Digital1" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Barrier1_inherits_Instruments1" Association="Model1.Store.FK_Barrier1_inherits_Instruments1">
+      <End Role="Instruments1" EntitySet="Instruments1" />
+      <End Role="Barrier1" EntitySet="Instruments1_Barrier1" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Instruments1">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ticker" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Exchange" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Underlying" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Price1">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="ClosingPrice" Type="float" Nullable="false" />
+    <Property Name="InstrumentsId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Trade1">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IsBuy" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Direction" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+    <Property Name="Price" Type="float" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="InstrumentsId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="InterestRate1">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Tenor" Type="float" Nullable="false" />
+    <Property Name="Rate" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" Nullable="true" />
+    <Property Name="definition" Type="varbinary(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Instruments1_Stock1">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="CompanyName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Instruments1_European1">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Strike" Type="float" Nullable="false" />
+    <Property Name="IsCall" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ExpirationDate" Type="float" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Instruments1_Asian1">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Strike" Type="float" Nullable="false" />
+    <Property Name="IsCall" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ExpirationDate" Type="float" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Instruments1_Range1">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Strike" Type="float" Nullable="false" />
+    <Property Name="ExpirationDate" Type="float" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Instruments1_LookBack1">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Strike" Type="float" Nullable="false" />
+    <Property Name="IsCall" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ExpirationDate" Type="float" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Instruments1_Digital1">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Strike" Type="float" Nullable="false" />
+    <Property Name="IsCall" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ExpirationDate" Type="float" Nullable="false" />
+    <Property Name="Rebate" Type="float" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Instruments1_Barrier1">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Strike" Type="float" Nullable="false" />
+    <Property Name="IsCall" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ExpirationDate" Type="float" Nullable="false" />
+    <Property Name="BarrierPrice" Type="float" Nullable="false" />
+    <Property Name="BarrierType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="InstrumentsPrice1">
+    <End Role="Instruments1" Type="Model1.Store.Instruments1" Multiplicity="1" />
+    <End Role="Price1" Type="Model1.Store.Price1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Instruments1">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Price1">
+        <PropertyRef Name="InstrumentsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InstrumentsTrade1">
+    <End Role="Instruments1" Type="Model1.Store.Instruments1" Multiplicity="1" />
+    <End Role="Trade1" Type="Model1.Store.Trade1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Instruments1">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Trade1">
+        <PropertyRef Name="InstrumentsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Stock1_inherits_Instruments1">
+    <End Role="Instruments1" Type="Model1.Store.Instruments1" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Stock1" Type="Model1.Store.Instruments1_Stock1" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Instruments1">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Stock1">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_European1_inherits_Instruments1">
+    <End Role="Instruments1" Type="Model1.Store.Instruments1" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="European1" Type="Model1.Store.Instruments1_European1" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Instruments1">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="European1">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Asian1_inherits_Instruments1">
+    <End Role="Instruments1" Type="Model1.Store.Instruments1" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Asian1" Type="Model1.Store.Instruments1_Asian1" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Instruments1">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Asian1">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Range1_inherits_Instruments1">
+    <End Role="Instruments1" Type="Model1.Store.Instruments1" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Range1" Type="Model1.Store.Instruments1_Range1" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Instruments1">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Range1">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LookBack1_inherits_Instruments1">
+    <End Role="Instruments1" Type="Model1.Store.Instruments1" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="LookBack1" Type="Model1.Store.Instruments1_LookBack1" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Instruments1">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LookBack1">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Digital1_inherits_Instruments1">
+    <End Role="Instruments1" Type="Model1.Store.Instruments1" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Digital1" Type="Model1.Store.Instruments1_Digital1" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Instruments1">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Digital1">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Barrier1_inherits_Instruments1">
+    <End Role="Instruments1" Type="Model1.Store.Instruments1" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Barrier1" Type="Model1.Store.Instruments1_Barrier1" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Instruments1">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Barrier1">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
